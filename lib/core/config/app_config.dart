@@ -1,21 +1,12 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-/// Entornos soportados. Se selecciona con la variable ENV del archivo .env
 enum AppEnvironment { mock, production }
 
-/// Configuración leída desde el archivo `.env` (raíz del proyecto).
-///
-/// Variables:
-///   ENV=mock | prod
-///   MOCK_URL=https://xxxx.mock.pstmn.io
-///   PROD_URL=http://10.0.2.2:8080
 class AppConfig {
   AppConfig._();
 
-  /// Debe llamarse una vez en main() antes de runApp().
   static Future<void> load() => dotenv.load(fileName: '.env', isOptional: true);
 
-  // Valores por defecto si el .env no existe o falta alguna clave.
   static const String _defaultMockUrl =
       'https://eb1404ef-01a6-4cd9-a356-d2edd23adc5f.mock.pstmn.io';
   static const String _defaultProdUrl = 'http://10.0.2.2:8080';
@@ -26,7 +17,6 @@ class AppConfig {
     return (value == null || value.isEmpty) ? fallback : value;
   }
 
-  // Selección de entorno
   static AppEnvironment get environment {
     final env = _get('ENV', 'mock').toLowerCase();
     return (env == 'prod' || env == 'production')
@@ -36,7 +26,6 @@ class AppConfig {
 
   static bool get isMock => environment == AppEnvironment.mock;
 
-  // Selección de URL (sin "/" final)
   static String get baseUrl {
     final url = isMock
         ? _get('MOCK_URL', _defaultMockUrl)

@@ -3,8 +3,6 @@ import '../../core/errors/app_exceptions.dart';
 import '../../core/network/api_client.dart';
 import '../models/auth_response.dart';
 
-/// POST /api/auth  body: {"email": "...", "password": "..."}
-/// Respuesta: {"success": true, "accessToken": "...", "tokenType": "Bearer", "expiresIn": 3600}
 class AuthService {
   AuthService(this._api);
   final ApiClient _api;
