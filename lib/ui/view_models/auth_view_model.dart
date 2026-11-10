@@ -16,6 +16,10 @@ class AuthViewModel extends ChangeNotifier {
   AuthStatus _status = AuthStatus.unknown;
   bool _loading = false;
   String? _error;
+  String? _role;
+
+  /// CANDIDATO, EMPRESA, ADMIN o SUPER_ADMIN (null si el backend no lo envía).
+  String? get role => _role;
 
   AuthStatus get status => _status;
   bool get isLoading => _loading;
@@ -24,6 +28,7 @@ class AuthViewModel extends ChangeNotifier {
   Future<void> init() async {
     final ok = await _repo.hasValidSession();
     _status = ok ? AuthStatus.authenticated : AuthStatus.unauthenticated;
+    _role = ok ? await _repo.currentRole() : null;
     notifyListeners();
   }
 
@@ -32,7 +37,7 @@ class AuthViewModel extends ChangeNotifier {
     _error = null;
     notifyListeners();
     try {
-      await _repo.login(email.trim(), password);
+      _role = await _repo.login(email.trim(), password);
       _status = AuthStatus.authenticated;
     } on UnauthorizedException {
       _error = 'Correo o contraseña incorrectos.';
@@ -51,6 +56,7 @@ class AuthViewModel extends ChangeNotifier {
   Future<void> logout() async {
     await _repo.logout();
     _error = null;
+    _role = null;
     _status = AuthStatus.unauthenticated;
     notifyListeners();
   }

@@ -3,6 +3,7 @@ import '../../core/errors/app_exceptions.dart';
 import '../../core/storage/cache_storage.dart';
 import '../models/prediction_response.dart';
 import '../services/prediction_service.dart';
+import 'package:flutter/foundation.dart';
 
 class PredictionResult {
   const PredictionResult(this.data, {this.fromCache = false, this.cachedAt});
@@ -56,8 +57,8 @@ class PredictionRepository {
         }
       }
       rethrow;
-    } catch (_) {
-      // json_serializable lanza TypeError/CastError si el JSON no cumple el contrato.
+        } catch (e, st) {
+      debugPrint('ERROR DE PARSEO: $e\n$st');
       throw const ParseException();
     }
   }

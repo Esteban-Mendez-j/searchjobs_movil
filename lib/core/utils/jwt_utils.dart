@@ -32,4 +32,21 @@ class JwtUtils {
     if (exp == null) return false;
     return DateTime.now().toUtc().isAfter(exp.subtract(leeway));
   }
+
+  /// Rol del usuario leído del payload (campos role / rol / roles / authorities).
+  /// Quita el prefijo ROLE_ si el backend lo agrega. Null si el token no lo trae.
+  static String? role(String token) {
+    final payload = decodePayload(token);
+    if (payload == null) return null;
+    for (final k in const ['role', 'rol', 'roles', 'authorities']) {
+      final v = payload[k];
+      String? r;
+      if (v is String && v.isNotEmpty) r = v;
+      if (v is List && v.isNotEmpty) r = v.first?.toString();
+      if (r != null && r.isNotEmpty) {
+        return r.startsWith('ROLE_') ? r.substring(5) : r;
+      }
+    }
+    return null;
+  }
 }

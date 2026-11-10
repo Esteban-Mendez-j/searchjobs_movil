@@ -34,8 +34,10 @@ class AppConfig {
   }
 
   // Endpoints
-  static const String predictionsPath = '/api/predicciones/demanda-laboral';
-  static const String loginPath = '/api/auth';
+  static String get predictionsPath => isMock
+    ? '/api/predicciones/demanda-laboral'
+    : '/api/prediccion/demanda-laboral/simulacion';
+  static const String loginPath = '/api/auth/login';
 
   // Tiempos y reintentos para solicitudes
   static const Duration requestTimeout = Duration(seconds: 15);

@@ -10,9 +10,17 @@ class AuthRepository {
   final TokenStorage _tokens;
   final CacheStorage _cache;
 
-  Future<void> login(String email, String password) async {
+  /// Inicia sesión y devuelve el rol del usuario (null si el backend no lo envía).
+  Future<String?> login(String email, String password) async {
     final auth = await _service.login(email: email, password: password);
     await _tokens.saveSession(auth.accessToken, expiresInSeconds: auth.expiresIn);
+    return auth.role ?? JwtUtils.role(auth.accessToken);
+  }
+
+  /// Rol de la sesión guardada (para cuando se reabre la app).
+  Future<String?> currentRole() async {
+    final token = await _tokens.readToken();
+    return token == null ? null : JwtUtils.role(token);
   }
 
   Future<bool> hasValidSession() async {
