@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'app.dart';
 import 'core/config/app_config.dart';
 import 'core/network/api_client.dart';
+import 'core/notifications/push_service.dart';
 import 'core/storage/cache_storage.dart';
 import 'core/storage/token_storage.dart';
 import 'data/repositories/auth_repository.dart';
@@ -37,6 +38,9 @@ Future<void> main() async {
     PredictionService(apiClient),
     cacheStorage,
   );
+
+  // Push (Firebase). No bloquea el arranque: pide permiso y obtiene el token.
+  PushService.init();
 
   runApp(
     MultiProvider(

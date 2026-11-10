@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'core/notifications/push_service.dart';
 import 'core/theme/app_theme.dart';
 import 'ui/view/analysis_view.dart';
 import 'ui/view/login_view.dart';
@@ -14,6 +15,7 @@ class SearchJobsApp extends StatelessWidget {
     return MaterialApp(
       title: 'SearchJobs',
       debugShowCheckedModeBanner: false,
+      scaffoldMessengerKey: PushService.messengerKey,
       theme: AppTheme.light,
       home: const _AuthGate(),
     );
