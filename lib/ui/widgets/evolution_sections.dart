@@ -95,7 +95,7 @@ class EvolutionCard extends StatelessWidget {
 
 /// Tarjeta "Requisitos de un cargo" con el gráfico de radar (araña).
 class RadarCard extends StatelessWidget {
-  const RadarCard({required this.vm});
+  const RadarCard({super.key, required this.vm});
   final PredictionViewModel vm;
 
   @override

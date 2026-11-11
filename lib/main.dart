@@ -21,6 +21,10 @@ Future<void> main() async {
   // Lee el archivo .env de la raíz (ENV, MOCK_URL, PROD_URL).
   await AppConfig.load();
 
+  // Push (Firebase): Inicializa FCM, canales de alta prioridad y handlers.
+  // Debe ser 'await' para registrar el handler antes de runApp.
+  await PushService.init();
+
   // Composición de dependencias (DI manual).
   final tokenStorage = TokenStorage();
   final cacheStorage = CacheStorage(await SharedPreferences.getInstance());
@@ -38,9 +42,6 @@ Future<void> main() async {
     PredictionService(apiClient),
     cacheStorage,
   );
-
-  // Push (Firebase). No bloquea el arranque: pide permiso y obtiene el token.
-  PushService.init();
 
   runApp(
     MultiProvider(

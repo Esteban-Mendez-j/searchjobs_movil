@@ -12,9 +12,8 @@ import 'api_error_response.dart';
 
 /// Cliente HTTP único de la app: timeout, reintentos, JWT y mapeo de errores.
 class ApiClient {
-  ApiClient({required http.Client client, required TokenStorage tokenStorage})
-    : _client = client,
-      _tokens = tokenStorage;
+  ApiClient({required this._client, required TokenStorage tokenStorage})
+    : _tokens = tokenStorage;
 
   final http.Client _client;
   final TokenStorage _tokens;

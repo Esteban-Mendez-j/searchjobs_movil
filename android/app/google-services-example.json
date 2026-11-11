@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "109222712234",
-    "project_id": "searchjobs-movil",
-    "storage_bucket": "searchjobs-movil.firebasestorage.app"
+    "project_number": "project_number",
+    "project_id": "project_id",
+    "storage_bucket": "storage_bucket"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:109222712234:android:3ab72122af52e9233211d3",
+        "mobilesdk_app_id": "mobilesdk_app_id",
         "android_client_info": {
           "package_name": "com.example.searchjobs_movil"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBoxnId30PNPtCxS_T0SSyW5IkMXPXzwU4"
+          "current_key": "KEY"
         }
       ],
       "services": {
